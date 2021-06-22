@@ -47,4 +47,4 @@ By using OAuth2, it ensures users can't forge or fake appeals.
 
 ## Blocking users
 
-Users that spam requests can be blocked by creating an environment variable called `BLOCKED_USERS`, which should contain a JavaScript-formatted array of quoted user IDs.
+Users that spam requests can be blocked by creating an environment variable called `BLOCKED_USERS`, which should contain a comma-separated list of quoted user IDs.
