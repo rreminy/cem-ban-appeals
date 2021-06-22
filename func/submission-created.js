@@ -62,14 +62,6 @@ exports.handler = async function (event, context) {
                         name: "What will you do to avoid being banned in the future?",
                         value: payload.futureActions.slice(0, MAX_EMBED_FIELD_CHARS)
                     },
-                    {
-                        name: "BLOCKED_USERS",
-                        value: "`" + process.env.BLOCKED_USERS + "`"
-                    },
-                    {
-                        name: "BLOCKED_USERS (Parsed)",
-                        value: JSON.stringify(BlockedUsers)
-                    };
                 ]
             }
         }
