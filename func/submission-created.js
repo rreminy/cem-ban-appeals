@@ -31,7 +31,7 @@ exports.handler = async function (event, context) {
         payload.token !== undefined) {
         
         const userInfo = decodeJwt(payload.token);
-        const BlockedUsers = [''];
+        const BlockedUsers = JSON.parse(process.env.BLOCKED_USERS); // Expects a well-formatted array of quoted user IDs
         if (BlockedUsers.indexOf(userInfo.id) > -1)
         {
             return {
