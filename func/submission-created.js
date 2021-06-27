@@ -54,6 +54,10 @@ exports.handler = async function (event, context) {
                         value: `${userInfo.username}#${userInfo.discriminator} (ID: ${userInfo.id})`
                     },
                     {
+                        name: "Which data centers are you from?",
+                        value: payload.datacenter.slice(0, MAX_EMBED_FIELD_CHARS)
+                    },
+                    {
                         name: "Why were you banned?",
                         value: payload.banReason.slice(0, MAX_EMBED_FIELD_CHARS)
                     },
