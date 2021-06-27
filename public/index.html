@@ -9,24 +9,8 @@
         <link rel="stylesheet" href="style.css">
 
         <title>Centurio Hunts Ban Appeal</title>
-        <script type="text/javascript">
-            ImageArray = new Array();
-            ImageArray[0] = 'https://i.imgur.com/jM2yBVU.png';
-            ImageArray[1] = 'https://i.imgur.com/Rip6XuH.png';
-            ImageArray[2] = 'https://i.imgur.com/1NdluMK.jpg';
-            ImageArray[3] = 'https://i.imgur.com/ykOFUVO.png';
-            ImageArray[4] = 'https://i.imgur.com/f3wKKgN.png';
-
-
-            function getRandomImage() {
-                var num = Math.floor( Math.random() * 5);
-                var img = ImageArray[num];
-                document.getElementById("randImage").innerHTML = ('<center><img src="' + img + '" width="500px" height="500px"></center>')
-
-            }
-        </script>
     </head>
-    <body class="h-100 d-flex flex-column justify-content-center align-items-stretch" onload="getRandomImage()">
+    <body class="h-100 d-flex flex-column justify-content-center align-items-stretch">
         <div class="jumbotron text-center mb-0">
             <h1>Centurio Hunts (<a href="https://discord.gg/dZTgnpv">https://discord.gg/dZTgnpv</a>) ban appeal</h1>
             <h3><font color="white">This will link your Discord account with our ban appeal bot and let you to fill out a form to appeal your ban.</font></h3>
@@ -51,6 +35,5 @@
 
             document.getElementById("login").href += `?state=${encodeURIComponent(state)}`;
         </script>
-        <div id="randImage"></div>
     </body>
 </html>
