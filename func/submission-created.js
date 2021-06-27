@@ -18,6 +18,7 @@ exports.handler = async function (event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
+            datacenter: params.get("datacenter") || undefined,
             banReason: params.get("banReason") || undefined,
             appealText: params.get("appealText") || undefined,
             futureActions: params.get("futureActions") || undefined,
@@ -31,15 +32,17 @@ exports.handler = async function (event, context) {
         payload.token !== undefined) {
         
         const userInfo = decodeJwt(payload.token);
-        const BlockedUsers = JSON.parse(`[${process.env.BLOCKED_USERS}]`);
-        if (BlockedUsers.indexOf(userInfo.id) > -1)
-        {
-            return {
-                statusCode: 303,
-                headers: {
-                    "Location": "/banned"
-                }
-            };
+        if (process.env.BLOCKED_USERS !== undefined) {
+            const BlockedUsers = JSON.parse(`[${process.env.BLOCKED_USERS}]`);
+            if (BlockedUsers.indexOf(userInfo.id) > -1)
+            {
+                return {
+                    statusCode: 303,
+                    headers: {
+                        "Location": "/banned"
+                    }
+                };
+            }
         }
         const message = {
             embed: {
