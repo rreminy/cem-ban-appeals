@@ -55,19 +55,19 @@ exports.handler = async function (event, context) {
                     },
                     {
                         name: "Which data centers are you from?",
-                        value: payload.datacenter?.slice(0, MAX_EMBED_FIELD_CHARS) || "_ _"
+                        value: (payload.datacenter || "_ _").slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                     {
                         name: "Why were you banned?",
-                        value: payload.banReason?.slice(0, MAX_EMBED_FIELD_CHARS) || "_ _"
+                        value: (payload.banReason || "_ _").slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                     {
                         name: "Why do you feel you should be unbanned?",
-                        value: payload.appealText?.slice(0, MAX_EMBED_FIELD_CHARS) || "_ _"
+                        value: (payload.appealText || "_ _").slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                     {
                         name: "What will you do to avoid being banned in the future?",
-                        value: payload.futureActions?.slice(0, MAX_EMBED_FIELD_CHARS) || "_ _"
+                        value: (payload.futureActions || "_ _").slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                 ]
             }
