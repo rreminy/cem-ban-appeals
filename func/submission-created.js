@@ -21,7 +21,6 @@ exports.handler = async function (event, context) {
             datacenter: params.get("datacenter") || undefined,
             banReason: params.get("banReason") || undefined,
             appealText: params.get("appealText") || undefined,
-            futureActions: params.get("futureActions") || undefined,
             token: params.get("token") || undefined
         };
     }
@@ -64,10 +63,6 @@ exports.handler = async function (event, context) {
                     {
                         name: "Why do you feel you should be unbanned?",
                         value: (payload.appealText || "_ _").slice(0, MAX_EMBED_FIELD_CHARS)
-                    },
-                    {
-                        name: "What will you do to avoid being banned in the future?",
-                        value: (payload.futureActions || "_ _").slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                 ]
             }
