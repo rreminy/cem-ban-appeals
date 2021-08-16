@@ -27,7 +27,7 @@ exports.handler = async function (event, context) {
 
     if (payload.banReason !== undefined &&
         payload.appealText !== undefined &&
-        payload.futureActions !== undefined && 
+        payload.datacenter !== undefined && 
         payload.token !== undefined) {
         
         const userInfo = decodeJwt(payload.token);
