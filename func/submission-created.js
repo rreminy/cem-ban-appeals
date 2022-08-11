@@ -4,7 +4,7 @@ import { API_ENDPOINT, MAX_EMBED_FIELD_CHARS, MAX_EMBED_FOOTER_CHARS } from "./h
 import { createJwt, decodeJwt } from "./helpers/jwt-helpers.js";
 import { getBan } from "./helpers/user-helpers.js";
 
-export async function handler (event, context) {
+export default async function handler (event, context) {
     let payload;
 
     if (process.env.USE_NETLIFY_FORMS) {

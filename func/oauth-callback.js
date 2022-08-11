@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import { getUserInfo, getBan } from "./helpers/user-helpers.js";
 import { createJwt } from "./helpers/jwt-helpers.js";
 
-export async function handler (event, context) {
+export default async function handler (event, context) {
     if (event.httpMethod !== "GET") {
         return {
             statusCode: 405
