@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+import { sign, verify } from "jsonwebtoken";
 
 function createJwt(data, duration) {
     const options = {
@@ -9,11 +9,11 @@ function createJwt(data, duration) {
         options.expiresIn = duration;
     }
 
-    return jwt.sign(data, process.env.JWT_SECRET, options);
+    return sign(data, process.env.JWT_SECRET, options);
 }
 
 function decodeJwt(token) {
-    return jwt.verify(token, process.env.JWT_SECRET);
+    return verify(token, process.env.JWT_SECRET);
 }
 
-module.exports = { createJwt, decodeJwt };
+export default { createJwt, decodeJwt };

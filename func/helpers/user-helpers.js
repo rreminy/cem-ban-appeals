@@ -1,6 +1,6 @@
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
-const { API_ENDPOINT } = require("./discord-helpers.js");
+import { API_ENDPOINT } from "./discord-helpers.js";
 
 async function getUserInfo(token) {
     const result = await fetch(`${API_ENDPOINT}/users/@me`, {
@@ -51,4 +51,4 @@ async function unbanUser(userId, guildId, botToken) {
     }
 }
 
-module.exports = { getUserInfo, getBan, unbanUser };
+export default { getUserInfo, getBan, unbanUser };
