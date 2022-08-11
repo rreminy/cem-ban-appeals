@@ -3,6 +3,10 @@ import { rename, readFile, writeFile, unlink } from "fs";
 import { resolve } from "path";
 import { env, exit } from "process";
 
+import * as url from 'url';
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 async function main() {
     if (!env.USE_NETLIFY_FORMS) {
         const submissionOldFunction = resolve(__dirname, "func", "submission-created.js");

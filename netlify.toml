@@ -1,7 +1,7 @@
 [build]
   publish = "public"
   functions = "func"
-  command = "node build.mjs"
+  command = "node build.js"
 
 [build.environment]
   AWS_LAMBDA_JS_RUNTIME = "nodejs16.x"
