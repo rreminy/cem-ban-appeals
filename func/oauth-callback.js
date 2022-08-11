@@ -1,4 +1,4 @@
-//import fetch from "node-fetch";
+import fetch from "node-fetch";
 
 import { getUserInfo, getBan } from "./helpers/user-helpers.js";
 import { createJwt } from "./helpers/jwt-helpers.js";
