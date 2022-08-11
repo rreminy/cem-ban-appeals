@@ -42,7 +42,9 @@ async function main() {
     }
 
     // Make sure the bot connected to the gateway at least once.
-    const client = new Discord.Client();
+    const client = new Discord.Client({
+        intents: 0x1ffff
+    });
     try {
         await client.login(process.env.DISCORD_BOT_TOKEN);
     } catch (e) {
