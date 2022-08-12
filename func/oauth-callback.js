@@ -88,6 +88,7 @@ export async function handler(event, context) {
                 }
             };
         } else {
+            console.error(event.queryStringParameters);
             return {
                 statusCode: 400
             };

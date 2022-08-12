@@ -18,16 +18,16 @@ export async function handler(event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
+            datacenter: params.get("banReason") || undefined,
             banReason: params.get("banReason") || undefined,
             appealText: params.get("appealText") || undefined,
-            futureActions: params.get("futureActions") || undefined,
             token: params.get("token") || undefined
         };
     }
 
-    if (payload.banReason !== undefined &&
-        payload.appealText !== undefined &&
-        payload.futureActions !== undefined && 
+    if (payload.datacenter !== undefined &&
+        payload.banReason !== undefined &&
+        payload.appealText !== undefined && 
         payload.token !== undefined) {
         
         const userInfo = decodeJwt(payload.token);
@@ -108,5 +108,4 @@ export async function handler(event, context) {
 
     return {
         statusCode: 400
-    };
-}
+    };}
