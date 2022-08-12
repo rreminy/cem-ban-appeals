@@ -1,10 +1,10 @@
 [build]
   publish = "public"
   functions = "func"
-  command = "node build.js"
+  command = "node --unhandled-rejections=strict build.js"
 
 [build.environment]
-  AWS_LAMBDA_JS_RUNTIME = "nodejs16.x"
+  AWS_LAMBDA_JS_RUNTIME = "nodejs14.x"
 
 [build.processing]
   css = { bundle = true, minify = true }
@@ -12,6 +12,9 @@
   html = { pretty_urls = true }
   images = { compress = true }
 
+[functions]
+  node_bundler = "esbuild"
+  
 [template.environment]
   DISCORD_CLIENT_ID = "Your Discord App's client ID"
   DISCORD_CLIENT_SECRET = "Your Discord App's client secret"
