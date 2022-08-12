@@ -15,7 +15,7 @@
             <h1>Ban appeal form</h1>
         </div>
 
-        <div class="container">
+        <div class="container mb-3">
             <div class="d-flex">
                 <img id="avatar" class="rounded-circle" width="64" height="64" alt="Your avatar">
                 <h2 id="username" class="ml-3 mb-0 align-self-center"></h2>
@@ -59,12 +59,8 @@
             };
 
             const params = new URLSearchParams(document.location.search.substring(1));
-            if (!params.has("state") || !params.has("token")) {
-                window.location.href = `/error?msg=${encodeURIComponent("Missing state or token")}`;
-            }
-
-            if (params.get("state") !== localStorage.getItem("state")) {
-                window.location.href = `/error?msg=${encodeURIComponent("Invalid state")}`;
+            if (!params.has("token")) {
+                window.location.href = `/error?msg=${encodeURIComponent("Missing token")}`;
             }
 
             const jwt = params.get("token");
@@ -99,6 +95,17 @@
                 updateTextarea();
                 textarea.oninput = updateTextarea;
             })
+
+            const form = document.querySelector("form");
+            form.addEventListener("change", event => {
+                if (event.target.type === "radio" && event.target.parentElement && event.target.parentElement.tagName.toLowerCase() === "label") {
+                    const prior = form.querySelector('label.checked input[name="' + event.target.name + '"]');
+                    if (prior) {
+                        prior.parentElement.classList.remove("checked");
+                    }
+                    event.target.parentElement.classList.add( "checked" );
+                }
+            }, false);
         </script>
     </body>
 </html>
