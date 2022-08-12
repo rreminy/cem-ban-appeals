@@ -1,61 +1,59 @@
-import { Client } from "discord.js";
-import { rename, readFile, writeFile, unlink } from "fs";
-import { resolve } from "path";
-import { env, exit } from "process";
+import Eris from "eris";
+import fs from "fs";
+import path from "path";
+import process from "process";
+import { fileURLToPath } from 'url';
 
-import * as url from 'url';
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+function assertSuccess(err) {
+    if (err) {
+        console.log(err);
+        process.exit(1);
+    }
+}
+
+function replaceInFile(file, original, replacement, callback) {
+    fs.readFile(file, "UTF-8", (err, data) => {
+        assertSuccess(err);
+
+        fs.writeFile(file, data.replace(original, replacement), "UTF-8", err => {
+            assertSuccess(err);
+
+            if (callback) {
+                callback();
+            }
+        });
+    });
+}
 
 async function main() {
-    if (!env.USE_NETLIFY_FORMS) {
-        const submissionOldFunction = resolve(__dirname, "func", "submission-created.js");
-        const submissionNewFunction = resolve(__dirname, "func", "submit-appeal.js");
-        rename(submissionOldFunction, submissionNewFunction, err => {
-            if (err) {
-                console.log(err);
-                exit(1);
-            }
-        });
+    const func = path.resolve(__dirname, "func");
 
-        const form = resolve(__dirname, "public", "form.html");
-        readFile(form, "UTF-8", (err, data) => {
-            if (err) {
-                console.log(err);
-                exit(1);
-            }
+    const url = process.env.CONTEXT === "production" ? process.env.URL : process.env.DEPLOY_PRIME_URL;
+    replaceInFile(path.resolve(func, "oauth.js"), /DEPLOY_PRIME_URL/g, `"${url}"`);
+    replaceInFile(path.resolve(func, "oauth-callback.js"), "DEPLOY_PRIME_URL", `"${url}"`);
+    replaceInFile(path.resolve(func, "submission-created.js"), "DEPLOY_PRIME_URL", `"${url}"`, () => {
+        if (!process.env.USE_NETLIFY_FORMS) {
+            fs.rename(path.resolve(func, "submission-created.js"), path.resolve(func, "submit-appeal.js"), assertSuccess);
+            replaceInFile(path.resolve(__dirname, "public", "form.html"), "action=\"/success\" netlify", "action=\"/.netlify/functions/submit-appeal\"");
+        }
+    });
 
-            data = data.replace("action=\"/success\" netlify", "action=\"/.netlify/functions/submit-appeal\"");
-            writeFile(form, data, "UTF-8", err => {
-                if (err) {
-                    console.log(err);
-                    exit(1);
-                }
-            });
-        });
-    }
-
-    if (env.DISABLE_UNBAN_LINK) {
-        const unban = resolve(__dirname, "func", "unban.js");
-        unlink(unban, err => {
-            if (err) {
-                console.log(err);
-                exit(1);
-            }
-        });
+    if (process.env.DISABLE_UNBAN_LINK) {
+        fs.unlink(path.resolve(func, "unban.js"), assertSuccess);
     }
 
     // Make sure the bot connected to the gateway at least once.
-    const client = new Client({
-        intents: 0x1ffff
-    });
+    const bot = new Eris(process.env.DISCORD_BOT_TOKEN);
+    bot.on("ready", () => bot.disconnect());
+    
     try {
-        await client.login(env.DISCORD_BOT_TOKEN);
+        await bot.connect();
     } catch (e) {
         console.log(e);
-        exit(1);
+        process.exit(1);
     }
-    client.destroy();
 }
 
 main();
