@@ -18,7 +18,7 @@ export async function handler(event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
-            datacenter: params.get("banReason") || undefined,
+            datacenter: params.get("datacenter") || undefined,
             banReason: params.get("banReason") || undefined,
             appealText: params.get("appealText") || undefined,
             token: params.get("token") || undefined
