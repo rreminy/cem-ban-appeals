@@ -18,14 +18,14 @@ export async function handler(event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
-            datacenter: params.get("datacenter") || undefined,
+            world: params.get("world") || undefined,
             banReason: params.get("banReason") || undefined,
             appealText: params.get("appealText") || undefined,
             token: params.get("token") || undefined
         };
     }
 
-    if (payload.datacenter !== undefined &&
+    if (payload.world !== undefined &&
         payload.banReason !== undefined &&
         payload.appealText !== undefined && 
         payload.token !== undefined) {
@@ -50,8 +50,8 @@ export async function handler(event, context) {
                         value: `${userInfo.username}#${userInfo.discriminator} (ID: ${userInfo.id})`
                     },
                     {
-                        name: "Which data centers are you from?",
-                        value: (payload.datacenter || "_ _").slice(0, MAX_EMBED_FIELD_CHARS)
+                        name: "Which world are you from?",
+                        value: (payload.world || "_ _").slice(0, MAX_EMBED_FIELD_CHARS)
                     },
                     {
                         name: "Why were you banned?",
